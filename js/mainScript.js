@@ -278,7 +278,8 @@ KEY_RIGHT = 39,
 KEY_DOWN  = 40,
 
 
-canvas, ctx, keystate, frames,score;
+canvas,wall_x=0,
+wall_y=0, ctx, keystate, frames,score;
 
 
 ///////////////////////////////////////////MohamedAshour///////////////////////////////////////////////
