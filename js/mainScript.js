@@ -413,5 +413,91 @@ function main() {
 	init();
 	loop();
 }
+/*
+ Ahmed alaa begin his work
+ */
+function loop() {
+	update();
+	draw();
+	window.requestAnimationFrame(loop, canvas);
+}
+
+
+function update() {
+	frames++;
+	update_direction();
+	if (frames%5 === 0) {
+        var  nx = snake.last.x;
+		var ny = snake.last.y;
+		var w=grid.width-1;
+		var h= grid.height-1;
+        if(snake.direction==LEFT)
+		    nx--;
+		else if(snake.direction==UP)
+		   ny--;	
+		else if(snake.direction==RIGHT)
+		    nx++;
+       else if(snake.direction==DOWN)
+		    ny++; 			
+	
+		if (wall_x > nx || nx > w ||wall_y > ny || ny >h ||grid.get(nx, ny) === SNAKE)
+		{
+			return init();
+		}
+        if (grid.get(nx, ny) === FRUIT) {
+			score++;
+			setFood();
+		} else {
+			var tail = snake.remove();
+			grid.set(EMPTY, tail.x, tail.y);
+		}
+		   grid.set(SNAKE, nx, ny);
+		   snake.insert(nx, ny);
+	}
+}
+
+function update_direction() {
+    if (keystate[KEY_LEFT] && snake.direction !== RIGHT) {
+	snake.direction = LEFT;
+	}
+	if (keystate[KEY_UP] && snake.direction !== DOWN) {
+		snake.direction = UP;
+	}
+	if (keystate[KEY_RIGHT] && snake.direction !== LEFT) {
+		snake.direction = RIGHT;
+	}
+	if (keystate[KEY_DOWN] && snake.direction !== UP) {
+		snake.direction = DOWN;
+	}
+}
+
+	function draw() {
+		draw_allcells();
+		ctx.fillStyle = "#000";
+		ctx.fillText("SCORE: " + score, 10, canvas.height-10);
+		}			
+
+	function draw_allcells() {
+	var tw = 20;
+     var th = 20;
+	var x=0;
+	var y=0
+		while ( x < grid.width) {
+		for (y=0; y < grid.height; y++) {
+		if(grid.get(x, y)==EMPTY)
+		ctx.fillStyle = "#fff0ee";
+		else if(grid.get(x, y)==SNAKE)
+		ctx.fillStyle = "#0ff222";
+		else if(grid.get(x, y)==FRUIT)
+		ctx.fillStyle = "#f00dde";
+		ctx.fillRect(x*tw, y*th, tw, th);
+		}
+		x++;
+	}
+}
+/*
+ Ahmed alaa finish his work
+ */
+ main();
  
 		
