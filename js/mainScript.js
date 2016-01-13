@@ -350,4 +350,68 @@ function setFood(){
 	
 	
 	
+///////////////////////////////////////// kareem //////////////////////////////////////
 	
+// function init  initiate game object or reset the game 
+
+function init ()
+{
+	score = 0; // the player score
+	
+	
+	grid.init(EMPTY,COLS,ROWS);  // start arg in init 
+
+	var sp = {x:Math.floor(COLS/2), y:ROWS-1};
+	snake.init(UP, sp.x, sp.y);
+	grid.set(SNAKE, sp.x, sp.y);
+
+	setFood();
+}
+
+
+/*
+function main  create canvas dynamic (if needed)
+
+call functions
+
+add events for keys 
+ 
+
+*/
+
+
+function main() {
+	// create canvas
+	
+	canvas = document.createElement("canvas");
+	canvas.width = COLS*20;
+	canvas.height = ROWS*20;
+	ctx = canvas.getContext("2d");
+	
+	
+	// append it to html body 
+	document.body.appendChild(canvas);
+
+	// sets an base font for bigger score display
+	ctx.font = "12px blue";
+
+	frames = 0;
+	keystate = {};
+	
+	// keeps track of the keyboard input
+	document.addEventListener("keydown", function(evt) {
+		keystate[evt.keyCode] = true;
+	});
+	
+	
+	document.addEventListener("keyup", function(evt) {
+		delete keystate[evt.keyCode];
+	});
+
+	
+	// intatiate game objects and starts the game loop
+	init();
+	loop();
+}
+ 
+		
