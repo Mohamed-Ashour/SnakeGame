@@ -166,7 +166,8 @@
 	
 	function checkLoged()
 	{
-		var PageName =window.location.href.split('storge/');
+		
+		var PageName =window.location.href.split('SnakeGame/');
 		if(PageName[1] == "snake.html" && localStorage.isLoged == "false" )
 		{
 			location.href='index.html';	
@@ -175,7 +176,7 @@
 	
 	function getPageName()
 	{
-		var pageName =window.location.href.split('storge/');
+		var pageName =window.location.href.split('SnakeGame/');
 		return pageName[1];
 	}
 	
@@ -215,47 +216,50 @@
 	}
 
 
-
-/*************** Page OnLoad *********************/
-
+			
+window.onload = function(){			
+			
+			// Check If user Logged Or No
+		checkLoged();
 		
-	// Check If user Logged Or No
-	checkLoged();
-	
-	// Create Some Default Storage 
-	if(typeof(localStorage.isLoged) == "undefined")
-	{ 	
-		localStorage.isLoged="false";	
-	}
-	
-	if(typeof localStorage.isNotFirst == "undefined"){
-		localStorage.isNotFirst = "true";
-		var usersObj = {'users':[]};
-		var jObj = JSON.stringify(usersObj);
-		localStorage.users = jObj;
-		localStorage.topScore = 0;
-	}
-	
-	if(localStorage.isLoged == "true" ){
-		var statusBar=document.getElementById("statusBar");
-		var canvContent=document.getElementById("my-canvas");
-		var allJobs = localStorage.users;
-		var  mobj = JSON.stringify(allJobs);
-		var sobj = JSON.parse(allJobs);
-		statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">'+getName()+'</label> <a id="registerBtn" onClick="logOut()">logout</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+'</label>';
-		canvContent.innerHTML = '<h2 align="center">Home Page</h2><div><label><b>User Name : </b></label>'+getName()+'</div><div><br><label><b>Style : </b></label><label style="background:'+ getColor() +';width:100px;">Snake\'s Color </label></div><div><br><label><b>User Top Score: </b></label>'+getScore()+'</div><div><br><label><b>User Badges : </b></label>'+ printBadges() +'</div>';
-	}
-			
-			
-			/*		
-			if(localStorage.isLoged == "true" && getPageName() == "snake.html" ){
+		// Create Some Default Storage 
+		if(typeof(localStorage.isLoged) == "undefined")
+		{ 	
+			localStorage.isLoged="false";	
+		}
+		
+		if(typeof localStorage.isNotFirst == "undefined"){
+			localStorage.isNotFirst = "true";
+			var usersObj = {'users':[]};
+			var jObj = JSON.stringify(usersObj);
+			localStorage.users = jObj;
+			localStorage.topScore = 0;
+		}
+		
+		
+		if(localStorage.isLoged == "true"  && getPageName() != "snake.html"){
+			var statusBar=document.getElementById("statusBar");
+			var canvContent=document.getElementById("my-canvas");
+			var allJobs = localStorage.users;
+			var  mobj = JSON.stringify(allJobs);
+			var sobj = JSON.parse(allJobs);
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">'+getName()+'</label> <a id="registerBtn" onClick="logOut()">logout</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+'</label>';
+			canvContent.innerHTML = '<h2 align="center">Home Page</h2><div><label><b>User Name : </b></label>'+getName()+'</div><div><br><label><b>Style : </b></label><label style="background:'+ getColor() +';width:100px;">Snake\'s Color </label></div><div><br><label><b>User Top Score: </b></label>'+getScore()+'</div><div><br><label><b>User Badges : </b></label>'+ printBadges() +'</div>';
+		}
+				
+				
+						
+				if(localStorage.isLoged == "true" && getPageName() == "snake.html" ){
 				
 				// Delete From Here 
-				
+				main();
+	
 			}
-			
-			
-			*/
+		
+}		
+
+
+/**************************** End Of My Code Mina *******************************/
 			
 			
 			
@@ -499,6 +503,5 @@ function update_direction() {
 /*
  Ahmed alaa finish his work
  */
- main();
+ //main();
  
-		
