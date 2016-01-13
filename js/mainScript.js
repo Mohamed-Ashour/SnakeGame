@@ -259,7 +259,94 @@
 			
 			
 			
-	
+var
+COLS = 50,
+ROWS = 26,
+
+EMPTY = 0,
+SNAKE = 1,
+FRUIT = 2,
+
+LEFT  = 0,
+UP    = 1,
+RIGHT = 2,
+DOWN  = 3,
+
+KEY_LEFT  = 37,
+KEY_UP    = 38,
+KEY_RIGHT = 39,
+KEY_DOWN  = 40,
+
+
+canvas, ctx, keystate, frames,score;
+
+
+///////////////////////////////////////////MohamedAshour///////////////////////////////////////////////
+
+grid = {
+	width : null,
+	height : null,
+	_grid : null,
+
+	init : function (dflt, cols, rows) {
+		this.width = cols;
+		this.height = rows;
+		this._grid = [];
+		for(var x=0; x<cols; x++){
+			this._grid.push([]);
+			for (var y=0; y<rows; y++){
+				this._grid[x].push(dflt);
+			}
+		}
+	},
+
+	set : function(val, x, y) {
+		this._grid[x][y] = val;
+	},
+
+	get : function (x, y) {
+		return this._grid[x][y];
+	}
+}
+
+
+snake = {
+	direction : null,
+	last : null,
+	_queue : null,
+
+	init : function (d, x, y) {
+		this.direction = d;
+		this._queue = [];
+		this.insert(x, y);
+	},
+
+	insert : function(x, y){
+		this._queue.unshift({x:x, y:y})
+		this.last = this._queue[0];
+	},
+
+	remove : function(){
+		return this._queue.pop();
+	}
+}
+
+function setFood(){
+	emptyFields =[];
+	for(var x=0; x<grid.width; x++){
+		for(var y=0; y<grid.height; y++){
+			if(grid.get(x,y) === EMPTY){
+				emptyFields.push({x:x,y:y});
+			}
+		}
+	}
+	var foodPos = emptyFields[Math.floor(Math.random()*emptyFields.length)];
+	grid.set(FRUIT, foodPos.x, foodPos.y)
+}
+
+
+
+///////////////////////////////////////////Mohamed Ashour///////////////////////////////////////////////
 	
 	
 	
