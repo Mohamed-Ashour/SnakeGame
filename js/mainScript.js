@@ -202,7 +202,7 @@
 	function logInForm()
 	{
 		var myconvas=document.getElementById("my-canvas");	
-		myconvas.innerHTML='<div id="loginForm"><h1 align="center">Log in Form</h1><label>User Name : </label><input type="text" id = "loginName" class"mytext" placeholder="Enter Your User Name" style="display:block;width:70%;padding:5px;margin-left:110px;"><br><button style="float:right;margin-right:15px;" id="login" onClick="login()">Enter</button></div>';	
+		myconvas.innerHTML='<div id="loginForm" ><h1 align="center" >Log in Form</h1><label>User Name : </label><input type="text" id = "loginName" class"mytext" placeholder="Enter Your User Name" style="display:block;width:70%;padding:5px;margin-left:110px;"><br><button style="float:right;margin-right:15px;" id="login" onClick="login()">Enter</button></div>';	
 	}
 
 	/*  View Registeration Form */
@@ -243,8 +243,17 @@ window.onload = function(){
 			var allJobs = localStorage.users;
 			var  mobj = JSON.stringify(allJobs);
 			var sobj = JSON.parse(allJobs);
-			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">'+getName()+'</label> <a id="registerBtn" onClick="logOut()">logout</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+'</label>';
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;color:#FFF;">'+getName()+'</label><a id="registerBtn" onClick="logOut()">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="snake.html"> Play</a><label style="display:block;float:right;margin-right:5px;color:#FFF;">Your Heigh Score : '+getScore()+'</label>';
 			canvContent.innerHTML = '<h2 align="center">Home Page</h2><div><label><b>User Name : </b></label>'+getName()+'</div><div><br><label><b>Style : </b></label><label style="background:'+ getColor() +';width:100px;">Snake\'s Color </label></div><div><br><label><b>User Top Score: </b></label>'+getScore()+'</div><div><br><label><b>User Badges : </b></label>'+ printBadges() +'</div>';
+		}
+		
+		if(localStorage.isLoged == "true"  && getPageName() == "snake.html"){
+			var statusBar=document.getElementById("snakeStatusBar");
+			var allJobs = localStorage.users;
+			var  mobj = JSON.stringify(allJobs);
+			var sobj = JSON.parse(allJobs);
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">'+getName()+'</label>   <a id="registerBtn" onClick="logOut()">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+'</label>';
+			
 		}
 				
 				
