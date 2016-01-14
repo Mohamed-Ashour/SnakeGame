@@ -290,10 +290,13 @@ KEY_UP    = 38,
 KEY_RIGHT = 39,
 KEY_DOWN  = 40,
 
-
-
 canvas,wall_x=0,
 wall_y=0, ctx, keystate, frames,score;
+
+bg_sound = document.getElementById("background_sound")
+hit_sound = document.getElementById("hit_sound")
+food_sound = document.getElementById("food_sound")
+
 
 
 ///////////////////////////////////////////MohamedAshour///////////////////////////////////////////////
@@ -372,8 +375,11 @@ function setFood(){
 function init ()
 {
 	score = 0; // the player score
-	
-	
+	bg_sound.load();
+	bg_sound.play();
+	bg_sound.loop=true
+
+
 	grid.init(EMPTY,COLS,ROWS);  // start arg in init 
 
 	var sp = {x:Math.floor(COLS/2), y:ROWS-1};
@@ -448,7 +454,7 @@ function update() {
 		var ny = snake.last.y;
 		var w=grid.width-1;
 		var h= grid.height-1;
-
+		bg_sound.play();
 		update_direction();
 
         if(snake.direction==LEFT)
@@ -462,10 +468,16 @@ function update() {
 	
 		if (wall_x > nx || nx > w ||wall_y > ny || ny >h ||grid.get(nx, ny) === SNAKE)
 		{
+			bg_sound.pause();
+
+			hit_sound.play();
+			alert("Game Over")
 			return init();
 		}
         if (grid.get(nx, ny) === FRUIT) {
 			score++;
+			bg_sound.pause();
+			food_sound.play();
 			setFood();
 		} else {
 			var tail = snake.remove();
