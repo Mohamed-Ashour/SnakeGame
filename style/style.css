@@ -3,10 +3,8 @@ body{
 	text-align: center;
 }
 #my-canvas{
+	border:3px solid #000000;
 	margin:10px auto;
-	background:rgba(255,255,255,0.7);
-	border:10px solid #FFF;
-	border-radius:15px;
 	}
 #statusBar{
 		width:706px;
@@ -23,8 +21,7 @@ body{
 #loginBtn:hover , #registerBtn:hover{
 	cursor:pointer;	
 }
-#registerBtn , .registerBtn{
-	text-decoration:none;
+#registerBtn{
 	float:right;
 	padding:5px;
 	color:#fff;
@@ -57,11 +54,6 @@ canvas {
 	left: 0;
 }
 
-#snakeStatusBar{
-	width:980px;
-	position:absolute;
-	top:30px;
-	text-align:center;
-	left:200px;
-		
+#snakeBody {
+	background-image: url("../img/bg.jpg") cover;
 }
