@@ -291,6 +291,7 @@ KEY_RIGHT = 39,
 KEY_DOWN  = 40,
 
 
+
 canvas,wall_x=0,
 wall_y=0, ctx, keystate, frames,score;
 
@@ -439,12 +440,17 @@ function loop() {
 
 function update() {
 	frames++;
-	update_direction();
-	if (frames%5 === 0) {
-        var  nx = snake.last.x;
+
+	
+	if (frames%4 === 0) {
+        
+        var nx = snake.last.x;
 		var ny = snake.last.y;
 		var w=grid.width-1;
 		var h= grid.height-1;
+
+		update_direction();
+
         if(snake.direction==LEFT)
 		    nx--;
 		else if(snake.direction==UP)
@@ -474,13 +480,13 @@ function update_direction() {
     if (keystate[KEY_LEFT] && snake.direction !== RIGHT) {
 	snake.direction = LEFT;
 	}
-	if (keystate[KEY_UP] && snake.direction !== DOWN) {
+	else if (keystate[KEY_UP] && snake.direction !== DOWN) {
 		snake.direction = UP;
 	}
-	if (keystate[KEY_RIGHT] && snake.direction !== LEFT) {
+	else if (keystate[KEY_RIGHT] && snake.direction !== LEFT) {
 		snake.direction = RIGHT;
 	}
-	if (keystate[KEY_DOWN] && snake.direction !== UP) {
+	else if (keystate[KEY_DOWN] && snake.direction !== UP) {
 		snake.direction = DOWN;
 	}
 }
@@ -492,8 +498,8 @@ function update_direction() {
 		}			
 
 	function draw_allcells() {
-	var tw = 20;
-     var th = 20;
+	var tw = canvas.width/grid.width;
+	var th = canvas.height/grid.height;
 	var x=0;
 	var y=0
 		while ( x < grid.width) {
