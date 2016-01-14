@@ -53,3 +53,7 @@ canvas {
 	right: 0;
 	left: 0;
 }
+
+#snakeBody {
+	background-image: url("../img/bg.jpg") cover;
+}
