@@ -263,7 +263,7 @@ window.onload = function(){
 			var allJobs = localStorage.users;
 			var  mobj = JSON.stringify(allJobs);
 			var sobj = JSON.parse(allJobs);
-			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">User Name : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore();
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:18px;margin-top:5px;margin-left:-15px ;">Player : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:30px;margin-top:6px;">Your Heighest Score : '+getScore();
 			
 		}
 				
@@ -308,13 +308,13 @@ wall_y=0, ctx, keystate, frames,score,myscore;
 
 var LEVEL = 1
 var SPEED = 5
+BADGES = getBadges();
 
+bg_sound = document.getElementById("background_sound");
+hit_sound = document.getElementById("hit_sound");
+food_sound = document.getElementById("food_sound");
 
-bg_sound = document.getElementById("background_sound")
-hit_sound = document.getElementById("hit_sound")
-food_sound = document.getElementById("food_sound")
-
-
+star = document.getElementById("star");
 
 ///////////////////////////////////////////MohamedAshour///////////////////////////////////////////////
 
@@ -411,8 +411,10 @@ function init ()
 function next()
 {
 	myscore = 0;
+	bg_sound.volume = .2;
 	bg_sound.load();
 	bg_sound.play();
+
 	bg_sound.loop=true;
 
 
@@ -490,6 +492,7 @@ function update() {
 		var w=grid.width-1;
 		var h= grid.height-1;
 		bg_sound.play();
+		bg_sound.volume = .3;
 		update_direction();
 
         if(snake.direction==LEFT)
@@ -509,6 +512,11 @@ function update() {
 			
 			LEVEL = 1;
 			SPEED = 5;
+
+			topScore(score);
+			setBadges(BADGES);
+			alert("Game Over");
+			location.href='snake.html';
 			return init();
 		}
         if (grid.get(nx, ny) === FRUIT) {
@@ -524,20 +532,23 @@ function update() {
 		   grid.set(SNAKE, nx, ny);
 		   snake.insert(nx, ny);
 
-		if(frames > 600){
-			setBadges(3)
-		}
-		else if(frames > 400){
-			setBadges(2)
-		}
+		if(frames > 6000 && getBadges()< 3 ){
 
-		else if(frames > 200){
-			setBadges(1)
+			setBadges(3)
+			BADGES = 3;
+		}
+		else if(frames > 4000 && getBadges()< 2){
+			setBadges(2);
+			BADGES = 2;		}
+
+		else if(frames > 2000 && getBadges()< 1){
+			setBadges(1);
+			BADGES = 1;
 		}
 
 		if (myscore >= 100 & LEVEL == 2){
 		LEVEL = 3;
-		SPEED = 2;
+		SPEED = 3;
 		alert("Level 3");
 		return next();
 		}
@@ -570,10 +581,16 @@ function update_direction() {
 	function draw() {
 		draw_allcells();
 		ctx.fillStyle = "#000";
+		ctx.font="12px Georgia";
 		ctx.fillText("SCORE: " + score, 10, canvas.height-10);
-				
 		ctx.fillText("LEVEL: " + LEVEL, canvas.width -70, canvas.height-10);
-		}
+		ctx.fillText("Survival Badges: ", 10, 20);
+		var place = 10;
+		for (var i = 0; i < BADGES; i++) {
+			ctx.drawImage(star, place, 30, 25, 25);
+			place+= 30;			
+		};
+	}
 
 	function draw_allcells() {
 	var tw = canvas.width/grid.width;
