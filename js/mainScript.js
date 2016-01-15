@@ -167,8 +167,9 @@
 	function checkLoged()
 	{
 		
-		var PageName =window.location.href.split('SnakeGame/');
-		if(PageName[1] == "snake.html" && localStorage.isLoged == "false" )
+		var path = window.location.pathname;
+		var PageName = path.split("/").pop();
+		if(PageName == "snake.html" && localStorage.isLoged == "false" )
 		{
 			location.href='index.html';	
 		}
@@ -176,8 +177,9 @@
 	
 	function getPageName()
 	{
-		var pageName =window.location.href.split('SnakeGame/');
-		return pageName[1];
+		var path = window.location.pathname;
+		var pageName = path.split("/").pop();
+		return pageName;
 	}
 	
 	function logOut()
