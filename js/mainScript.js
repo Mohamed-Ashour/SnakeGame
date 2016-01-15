@@ -252,7 +252,7 @@ window.onload = function(){
 			var allJobs = localStorage.users;
 			var  mobj = JSON.stringify(allJobs);
 			var sobj = JSON.parse(allJobs);
-			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">User Name : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+' <br> ToTal Badges : '+ printBadges() +'</label>';
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">User Name : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+' <br> ToTal Badges : '+ printBadges() +'</label>';
 			
 		}
 				
@@ -292,6 +292,12 @@ KEY_DOWN  = 40,
 
 canvas,wall_x=0,
 wall_y=0, ctx, keystate, frames,score;
+
+
+
+var LEVEL = 1
+var SPEED = 4
+
 
 bg_sound = document.getElementById("background_sound")
 hit_sound = document.getElementById("hit_sound")
@@ -374,10 +380,10 @@ function setFood(){
 
 function init ()
 {
-	score = 0; // the player score
+	if (LEVEL ==1){score = 0}; // the player score
 	bg_sound.load();
 	bg_sound.play();
-	bg_sound.loop=true
+	bg_sound.loop=true;
 
 
 	grid.init(EMPTY,COLS,ROWS);  // start arg in init 
@@ -448,7 +454,7 @@ function update() {
 	frames++;
 
 	
-	if (frames%4 === 0) {
+	if (frames%SPEED === 0) {
         
         var nx = snake.last.x;
 		var ny = snake.last.y;
@@ -466,16 +472,18 @@ function update() {
        else if(snake.direction==DOWN)
 		    ny++; 			
 	
+
 		if (wall_x > nx || nx > w ||wall_y > ny || ny >h ||grid.get(nx, ny) === SNAKE)
 		{
 			bg_sound.pause();
-
 			hit_sound.play();
-			alert("Game Over")
+			
+			LEVEL = 1;
+			SPEED = 4;
 			return init();
 		}
         if (grid.get(nx, ny) === FRUIT) {
-			score++;
+			score+=10;
 			bg_sound.pause();
 			food_sound.play();
 			setFood();
@@ -485,6 +493,23 @@ function update() {
 		}
 		   grid.set(SNAKE, nx, ny);
 		   snake.insert(nx, ny);
+
+		if(frames > 200){
+			setBadges(1)
+		}
+		else if(frames > 400){
+			setBadges(2)
+		}
+
+		else if(frames > 600){
+			setBadges(3)
+		}
+
+		// if (score >= 10){
+		// 	LEVEL = 2;
+		// 	SPEED = 3;
+		// 	return init();
+		// }
 	}
 }
 
@@ -519,7 +544,7 @@ function update_direction() {
 		if(grid.get(x, y)==EMPTY)
 		ctx.fillStyle = "#fff0ee";
 		else if(grid.get(x, y)==SNAKE)
-		ctx.fillStyle = "#0ff222";
+		ctx.fillStyle = getColor();
 		else if(grid.get(x, y)==FRUIT)
 		ctx.fillStyle = "#f00dde";
 		ctx.fillRect(x*tw, y*th, tw, th);

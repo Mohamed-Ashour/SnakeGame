@@ -29,7 +29,8 @@ body{
 	color:#fff;
 	display:block;
 	background:#333;
-	text-decoration:none;	
+	text-decoration:none;
+	border: 1px solid #fff;	
 }
 #loginForm , #registerForm{
 	text-align:left;
@@ -58,7 +59,7 @@ canvas {
 }
 
 #snakeBody {
-	background-image: url("../img/bg.jpg") cover;
+	background-image: url("../img/bg.jpg");
 }
 
 #snakeStatusBar{
