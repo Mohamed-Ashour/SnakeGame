@@ -198,6 +198,17 @@
 			}
 			return newCanvContent;
 	}
+
+	function printMyBadges(badges)
+	{
+		var newCanvContent='';
+		for(var i=0;i < getBadges() ; i++){
+			 
+			newCanvContent +='<img src="img/star.png" width="20" height="20">'
+			}
+			return newCanvContent;
+	}
+
 	/* View Login Form */
 	function logInForm()
 	{
@@ -252,7 +263,7 @@ window.onload = function(){
 			var allJobs = localStorage.users;
 			var  mobj = JSON.stringify(allJobs);
 			var sobj = JSON.parse(allJobs);
-			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">User Name : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore()+' <br> ToTal Badges : '+ printBadges() +'</label>';
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:24px;">User Name : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:5px;">Your Heigh Score : '+getScore();
 			
 		}
 				
@@ -291,12 +302,12 @@ KEY_RIGHT = 39,
 KEY_DOWN  = 40,
 
 canvas,wall_x=0,
-wall_y=0, ctx, keystate, frames,score;
+wall_y=0, ctx, keystate, frames,score,myscore;
 
 
 
 var LEVEL = 1
-var SPEED = 4
+var SPEED = 5
 
 
 bg_sound = document.getElementById("background_sound")
@@ -380,7 +391,8 @@ function setFood(){
 
 function init ()
 {
-	if (LEVEL ==1){score = 0}; // the player score
+	myscore = 0
+	score = 0
 	bg_sound.load();
 	bg_sound.play();
 	bg_sound.loop=true;
@@ -395,6 +407,23 @@ function init ()
 	setFood();
 }
 
+
+function next()
+{
+	myscore = 0;
+	bg_sound.load();
+	bg_sound.play();
+	bg_sound.loop=true;
+
+
+	grid.init(EMPTY,COLS,ROWS);  // start arg in init 
+
+	var sp = {x:Math.floor(COLS/2), y:ROWS-1};
+	snake.init(UP, sp.x, sp.y);
+	grid.set(SNAKE, sp.x, sp.y);
+
+	setFood();
+}
 
 /*
 function main  create canvas dynamic (if needed)
@@ -479,11 +508,12 @@ function update() {
 			hit_sound.play();
 			
 			LEVEL = 1;
-			SPEED = 4;
+			SPEED = 5;
 			return init();
 		}
         if (grid.get(nx, ny) === FRUIT) {
 			score+=10;
+			myscore += 10;
 			bg_sound.pause();
 			food_sound.play();
 			setFood();
@@ -494,22 +524,29 @@ function update() {
 		   grid.set(SNAKE, nx, ny);
 		   snake.insert(nx, ny);
 
-		if(frames > 200){
-			setBadges(1)
+		if(frames > 600){
+			setBadges(3)
 		}
 		else if(frames > 400){
 			setBadges(2)
 		}
 
-		else if(frames > 600){
-			setBadges(3)
+		else if(frames > 200){
+			setBadges(1)
 		}
 
-		// if (score >= 10){
-		// 	LEVEL = 2;
-		// 	SPEED = 3;
-		// 	return init();
-		// }
+		if (myscore >= 100 & LEVEL == 2){
+		LEVEL = 3;
+		SPEED = 2;
+		return next();
+		}
+
+		if (myscore >= 100 & LEVEL == 1){
+		LEVEL = 2;
+		SPEED = 4;
+		return next();
+		}
+
 	}
 }
 
@@ -532,7 +569,9 @@ function update_direction() {
 		draw_allcells();
 		ctx.fillStyle = "#000";
 		ctx.fillText("SCORE: " + score, 10, canvas.height-10);
-		}			
+				
+		ctx.fillText("LEVEL: " + LEVEL, canvas.width -70, canvas.height-10);
+		}
 
 	function draw_allcells() {
 	var tw = canvas.width/grid.width;
@@ -555,5 +594,4 @@ function update_direction() {
 /*
  Ahmed alaa finish his work
  */
- //main();
  
