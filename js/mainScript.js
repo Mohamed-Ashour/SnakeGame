@@ -263,7 +263,7 @@ window.onload = function(){
 			var allJobs = localStorage.users;
 			var  mobj = JSON.stringify(allJobs);
 			var sobj = JSON.parse(allJobs);
-			statusBar.innerHTML = '<label style="display:block;float:left;font-size:18px;margin-top:5px;margin-left:-15px ;">Player : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:30px;margin-top:6px;">Your Heighest Score : '+getScore();
+			statusBar.innerHTML = '<label style="display:block;float:left;font-size:18px;margin-top:5px;margin-left:-7px ;">Player : '+getName()+'</label>  <label style="float:left; margin-left:10px;"> </label>  <a id="registerBtn" onClick="logOut()  ;">logout</a>&nbsp; <a id="registerBtn" class="registerBtn" href="index.html"> Home</a><label style="display:block;float:right;margin-right:30px;margin-top:6px;">Your Heighest Score : '+getScore();
 			
 		}
 				
