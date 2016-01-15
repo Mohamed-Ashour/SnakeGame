@@ -399,7 +399,7 @@ function init ()
 	bg_sound.play();
 	bg_sound.loop=true;
 
-	keystate = {};
+
 	grid.init(EMPTY,COLS,ROWS);  // start arg in init 
 
 	var sp = {x:Math.floor(COLS/2), y:ROWS-1};
@@ -484,7 +484,7 @@ function loop() {
 
 
 function update() {
-	keystate = {};	frames++;
+	frames++;
 
 	
 	if (frames%SPEED === 0) {
