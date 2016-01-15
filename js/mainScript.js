@@ -538,12 +538,14 @@ function update() {
 		if (myscore >= 100 & LEVEL == 2){
 		LEVEL = 3;
 		SPEED = 2;
+		alert("Level 3");
 		return next();
 		}
 
 		if (myscore >= 100 & LEVEL == 1){
 		LEVEL = 2;
 		SPEED = 4;
+		alert("Level 2");
 		return next();
 		}
 
@@ -583,9 +585,11 @@ function update_direction() {
 		if(grid.get(x, y)==EMPTY)
 		ctx.fillStyle = "#fff0ee";
 		else if(grid.get(x, y)==SNAKE)
-		ctx.fillStyle = getColor();
+{		ctx.fillStyle = getColor();
+		ctx.strokeStyle="#fff0ee";
+		ctx.strokeRect(x*tw, y*th, tw, th);}
 		else if(grid.get(x, y)==FRUIT)
-		ctx.fillStyle = "#f00dde";
+		{ctx.fillStyle = "#f00dde";}
 		ctx.fillRect(x*tw, y*th, tw, th);
 		}
 		x++;
