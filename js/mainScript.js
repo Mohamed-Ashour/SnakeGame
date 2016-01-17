@@ -412,6 +412,8 @@ function init ()
 
 function next()
 {
+	keystate = {};
+
 	myscore = 0;
 	bg_sound.volume = .2;
 	bg_sound.load();
