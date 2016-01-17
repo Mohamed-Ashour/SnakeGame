@@ -550,14 +550,14 @@ function update() {
 			BADGES = 1;
 		}
 
-		if (myscore >= 100 & LEVEL == 2){
+		if (myscore >= 200 & LEVEL == 2){
 		LEVEL = 3;
 		SPEED = 3;
 		alert("Level 3");
 		return next();
 		}
 
-		if (myscore >= 100 & LEVEL == 1){
+		if (myscore >= 200 & LEVEL == 1){
 		LEVEL = 2;
 		SPEED = 4;
 		alert("Level 2");
